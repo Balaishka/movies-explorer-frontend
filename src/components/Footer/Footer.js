@@ -21,12 +21,22 @@ function Footer() {
         <div className="footer__nav">
           <ul className="footer__list">
             <li className="footer__item">
-              <a href="https://practicum.yandex.ru/" className="footer__link">
+              <a
+                href="https://practicum.yandex.ru/"
+                className="footer__link"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Яндекс.Практикум
               </a>
             </li>
             <li className="footer__item">
-              <a href="https://github.com/Balaishka/" className="footer__link">
+              <a
+                href="https://github.com/Balaishka/"
+                className="footer__link"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Github
               </a>
             </li>

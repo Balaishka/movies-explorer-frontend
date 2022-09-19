@@ -23,7 +23,12 @@ function AboutMe() {
                 занимаюсь фриланс-заказами, но больше люблю работать в команде.
               </p>
             </div>
-            <a href="https://github.com/Balaishka" className="about-me__link">
+            <a
+              href="https://github.com/Balaishka"
+              className="about-me__link"
+              target="_blank"
+              rel="noreferrer"
+            >
               Github
             </a>
           </div>

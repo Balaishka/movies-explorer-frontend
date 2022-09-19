@@ -24,12 +24,17 @@
   border: none;
   background-color: transparent;
   outline: none;
-  padding: 0;
+  padding: 6px 0 5px;
   width: 100%;
+  border-bottom: 1px solid transparent;
 }
 
 .search__input::placeholder {
   color: #a0a0a0;
+}
+
+.search__input:focus {
+  border-bottom-color: #2BE080;
 }
 
 .search__btn {
@@ -50,6 +55,7 @@
   cursor: pointer;
   opacity: 1;
   transition: opacity 0.2s ease-in-out;
+  margin-left: 10px;
 }
 
 .search__btn:hover {

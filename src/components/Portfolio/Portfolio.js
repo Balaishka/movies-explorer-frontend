@@ -11,6 +11,8 @@ function Portfolio() {
             <a
               href="https://github.com/Balaishka/how-to-learn"
               className="portfolio__link"
+              target="_blank"
+              rel="noreferrer"
             >
               Статичный сайт
               <img src={arrow} alt="Стрелка" className="portfolio__img" />
@@ -20,6 +22,8 @@ function Portfolio() {
             <a
               href="https://balaishka.github.io/balai-russian-travel/"
               className="portfolio__link"
+              target="_blank"
+              rel="noreferrer"
             >
               Адаптивный сайт
               <img src={arrow} alt="Стрелка" className="portfolio__img" />
@@ -29,6 +33,8 @@ function Portfolio() {
             <a
               href="https://github.com/Balaishka/react-mesto-api-full-1"
               className="portfolio__link"
+              target="_blank"
+              rel="noreferrer"
             >
               Одностраничное приложение
               <img src={arrow} alt="Стрелка" className="portfolio__img" />

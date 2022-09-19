@@ -26,7 +26,7 @@ function MoviesCard({ movie }) {
       <div className="movie__block">
         <h2 className="movie__title">{movie.nameRU}</h2>
         {pathname === "/movies" ? (
-          <button className="movie__btn" onClick={toggleLike}>
+          <button className="movie__btn" onClick={toggleLike} type="button">
             <svg
               width="24"
               height="24"
@@ -42,7 +42,7 @@ function MoviesCard({ movie }) {
             </svg>
           </button>
         ) : (
-          <button className="movie__btn" onClick={toggleLike}>
+          <button className="movie__btn" onClick={toggleLike} type="button">
             <svg
               width="24"
               height="24"
@@ -52,8 +52,8 @@ function MoviesCard({ movie }) {
             >
               <rect width="24" height="24" rx="12" fill="#F9F9F9" />
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M12.001 13.0605L14.6525 15.7121L15.7132 14.6514L13.0616 11.9999L15.7131 9.34844L14.6524 8.28778L12.001 10.9392L9.34923 8.28748L8.28857 9.34814L10.9403 11.9999L8.28846 14.6517L9.34912 15.7124L12.001 13.0605Z"
                 fill="black"
               />

@@ -39,6 +39,7 @@ function Register({ onSubmit }) {
         value={data.name}
         minLength="2"
         maxLength="30"
+        required
       />
       <span className="auth__input-text">E-mail</span>
       <input
@@ -47,6 +48,7 @@ function Register({ onSubmit }) {
         type="email"
         onChange={handleChange}
         value={data.email}
+        required
       />
       <span className="auth__input-text">Пароль</span>
       <input
@@ -55,6 +57,7 @@ function Register({ onSubmit }) {
         type="password"
         onChange={handleChange}
         value={data.password}
+        required
       />
     </AuthForm>
   );

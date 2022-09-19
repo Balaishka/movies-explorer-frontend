@@ -43,6 +43,7 @@ function Profile({ onSubmit }) {
                   minLength="2"
                   maxLength="30"
                   onChange={handleChange}
+                  required
                 />
               ) : (
                 <input
@@ -62,6 +63,7 @@ function Profile({ onSubmit }) {
                   name="email"
                   type="email"
                   onChange={handleChange}
+                  required
                 />
               ) : (
                 <input
@@ -85,14 +87,14 @@ function Profile({ onSubmit }) {
             ) : (
               <>
                 <button
-                  type="button"
+                  type="submit"
                   className="profile__btn profile__btn_name_edit"
                   onClick={editTrue}
                 >
                   Редактировать
                 </button>
                 <button
-                  type="submit"
+                  type="button"
                   className="profile__btn profile__btn_name_logout"
                 >
                   Выйти из аккаунта

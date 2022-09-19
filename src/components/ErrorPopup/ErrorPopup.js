@@ -7,7 +7,7 @@ function ErrorPopup({ message, isError, closePopup }) {
       {isError && (
         <div className="error-popup">
           <div className="error-popup__container">
-            <button className="error-popup__close" onClick={closePopup}>
+            <button className="error-popup__close" onClick={closePopup} type="button">
               <img src={close} alt="Закрыть" />
             </button>
             <h3 className="error-popup__title">Ошибка!</h3>

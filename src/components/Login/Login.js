@@ -37,6 +37,7 @@ function Login({ onSubmit }) {
         type="text"
         onChange={handleChange}
         value={data.email}
+        required
       />
       <span className="auth__input-text">Пароль</span>
       <input
@@ -45,6 +46,7 @@ function Login({ onSubmit }) {
         type="password"
         onChange={handleChange}
         value={data.password}
+        required
       />
     </AuthForm>
   );
