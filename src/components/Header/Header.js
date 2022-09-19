@@ -16,15 +16,16 @@ function Header({ loggedIn }) {
   }
 
   return (
-    <header
-      className={`header ${pathname === "/" ? "header_name_main" : ""}`}
-    >
+    <header className={`header ${pathname === "/" ? "header_name_main" : ""}`}>
       <div className="header__container">
         <NavLink to="/" className="header__logo">
           <img src={logo} alt="Логотип" />
         </NavLink>
 
-        <Navigation loggedIn={loggedIn} isMain={pathname === "/" ? true : false} />
+        <Navigation
+          loggedIn={loggedIn}
+          isMain={pathname === "/" ? true : false}
+        />
       </div>
     </header>
   );

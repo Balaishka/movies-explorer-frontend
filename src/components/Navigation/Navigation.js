@@ -18,7 +18,9 @@ function Navigation({ loggedIn, isMain }) {
       {loggedIn ? (
         <>
           <button
-            className={`navigation__btn-burger ${isMain ? "navigation__btn-burger_color_white" : ""}`}
+            className={`navigation__btn-burger ${
+              isMain ? "navigation__btn-burger_color_white" : ""
+            }`}
             type="button"
             onClick={openMenu}
           ></button>
@@ -111,7 +113,12 @@ function Navigation({ loggedIn, isMain }) {
         <nav className="navigation__nav">
           <ul className="navigation__list">
             <li className="navigation__item">
-              <NavLink to="/signup" className={`navigation__link ${!isMain ? "navigation__link_color_black" : ""}`}>
+              <NavLink
+                to="/signup"
+                className={`navigation__link ${
+                  !isMain ? "navigation__link_color_black" : ""
+                }`}
+              >
                 Регистрация
               </NavLink>
             </li>
