@@ -1,0 +1,123 @@
+.search {
+  background-color: #fff;
+}
+
+.search__container {
+  padding: 80px 10px 10px;
+}
+
+.search__form {
+  background-color: #f9f9f9;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 19px;
+}
+
+.search__input {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.43;
+  color: #000;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  padding: 6px 0 5px;
+  width: 100%;
+  border-bottom: 1px solid transparent;
+}
+
+.search__input::placeholder {
+  color: #a0a0a0;
+}
+
+.search__input:focus {
+  border-bottom-color: #2be080;
+}
+
+.search__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 48px;
+  background-image: url(../../images/search-btn.svg);
+  background-color: #ff6838;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px 22px;
+  padding: 6px 29px;
+  border: none;
+  min-width: 80px;
+  height: 34px;
+  box-sizing: border-box;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+  margin-left: 10px;
+}
+
+.search__btn:hover {
+  opacity: 0.8;
+}
+
+.search__line {
+  background-color: #e8e8e8;
+  height: 1px;
+  width: calc(100% - 8px);
+  margin: 0 auto;
+}
+
+/* Mobile */
+
+@media screen and (min-width: 768px) {
+  .search__container {
+    padding: 80px 30px 120px;
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    position: relative;
+  }
+
+  .search__form {
+    background-image: url(../../images/search.svg);
+    background-repeat: no-repeat;
+    background-position: 25px center;
+    background-size: 22px 22px;
+    padding-left: 63px;
+    position: relative;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .search__form::after {
+    content: "";
+    background-color: #cbcbcb;
+    width: 1px;
+    height: 40px;
+    position: absolute;
+    right: 0;
+  }
+
+  .search__input {
+    font-size: 18px;
+    line-height: 1.11;
+  }
+
+  .search__line {
+    position: absolute;
+    bottom: 10px;
+    width: calc(100% - 60px);
+    left: 30px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .search__container {
+    padding: 70px 30px 80px;
+  }
+
+  .search__form {
+    padding-right: 30px;
+  }
+}

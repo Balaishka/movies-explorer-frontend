@@ -1,0 +1,16 @@
+.page {
+  min-height: 100vh;
+  height: max-content;
+}
+
+.content {
+  min-height: max-content;
+  height: 100%;
+}
+
+.content__container {
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
