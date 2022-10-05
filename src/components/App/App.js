@@ -15,6 +15,7 @@ import Preloader from "../Preloader/Preloader";
 import moviesApi from "../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import { durationShortFilm } from "../../configs/constants";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import {
   errors,
@@ -51,6 +52,7 @@ function App() {
   const [isSearch, setIsSearch] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
+  const [filteredCards, setFilteredCards] = useState([]);
 
   // Карточки
   const [savedMovies, setSavedMovies] = useState([]);
@@ -139,10 +141,14 @@ function App() {
     localStorage.removeItem("isSearch");
     localStorage.removeItem("filteredMovies");
     localStorage.removeItem("savedMovies");
+    localStorage.removeItem("movies");
 
     setIsSearch(false);
     setLoggedIn(false);
     setFilteredMovies([]);
+    setFilteredCards([]);
+    setSavedMovies([]);
+
     setCurrentUser({
       name: "",
       email: "",
@@ -163,6 +169,7 @@ function App() {
           history.push(pathname);
         })
         .catch((err) => {
+          handleLogout();
           console.log(`Ошибка: ${err}`);
         });
     }
@@ -188,47 +195,62 @@ function App() {
       });
   }
 
-  function searchFilms(filmName, isShortFilm) {
-    setIsLoading(true);
+  function filteredAllMovies(movies, regex, isShortFilm) {
+    setIsSearch(true);
+    localStorage.setItem("isSearch", JSON.stringify(true));
 
+    if (isShortFilm) {
+      setFilteredMovies(
+        movies.filter(
+          (card) => regex.test(card.nameRU) && card.duration < durationShortFilm
+        )
+      );
+      localStorage.setItem(
+        "filteredMovies",
+        JSON.stringify(
+          movies.filter(
+            (card) =>
+              regex.test(card.nameRU) && card.duration < durationShortFilm
+          )
+        )
+      );
+    } else {
+      setFilteredMovies(movies.filter((card) => regex.test(card.nameRU)));
+      localStorage.setItem(
+        "filteredMovies",
+        JSON.stringify(movies.filter((card) => regex.test(card.nameRU)))
+      );
+    }
+  }
+
+  function searchFilms(filmName, isShortFilm) {
     const regex = new RegExp(filmName, "i");
 
-    moviesApi
-      .getAllFilms()
-      .then((data) => {
-        setIsSearch(true);
-        localStorage.setItem("isSearch", JSON.stringify(true));
-
-        if (isShortFilm) {
-          setFilteredMovies(
-            data.filter((card) => regex.test(card.nameRU) && card.duration < 41)
+    if (JSON.parse(localStorage.getItem("movies")) === null) {
+      setIsLoading(true);
+      moviesApi
+        .getAllFilms()
+        .then((data) => {
+          localStorage.setItem("movies", JSON.stringify(data));
+          filteredAllMovies(data, regex, isShortFilm);
+        })
+        .catch((err) => {
+          setIsSuccess(false);
+          setMessageInfo(
+            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
           );
-          localStorage.setItem(
-            "filteredMovies",
-            JSON.stringify(
-              data.filter(
-                (card) => regex.test(card.nameRU) && card.duration < 41
-              )
-            )
-          );
-        } else {
-          setFilteredMovies(data.filter((card) => regex.test(card.nameRU)));
-          localStorage.setItem(
-            "filteredMovies",
-            JSON.stringify(data.filter((card) => regex.test(card.nameRU)))
-          );
-        }
-      })
-      .catch((err) => {
-        setIsSuccess(false);
-        setMessageInfo(
-          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-        );
-        setIsOpen(true);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+          setIsOpen(true);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      filteredAllMovies(
+        JSON.parse(localStorage.getItem("movies")),
+        regex,
+        isShortFilm
+      );
+    }
   }
 
   function searchSavedFilms(filmName, isShortFilm) {
@@ -239,7 +261,9 @@ function App() {
     );
 
     if (isShortFilm) {
-      setFilteredSavedMovies(savedMovies.filter((card) => card.duration < 41));
+      setFilteredSavedMovies(
+        savedMovies.filter((card) => card.duration < durationShortFilm)
+      );
     }
   }
 
@@ -316,6 +340,8 @@ function App() {
                   likeFilm={likeFilm}
                   deleteFilm={deleteFilm}
                   savedMovies={savedMovies}
+                  filteredCards={filteredCards}
+                  setFilteredCards={setFilteredCards}
                 />
               </ProtectedRoute>
 

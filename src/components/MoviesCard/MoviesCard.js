@@ -35,11 +35,13 @@ function MoviesCard({ card, likeFilm, deleteFilm, savedMovies }) {
 
   return (
     <li className="movie">
-      <img
-        className="movie__img"
-        src={`https://api.nomoreparties.co/${card.image.url}`}
-        alt={card.nameRU}
-      />
+      <a href={card.trailerLink}>
+        <img
+          className="movie__img"
+          src={`https://api.nomoreparties.co/${card.image.url}`}
+          alt={card.nameRU}
+        />
+      </a>
       <div className="movie__block">
         <h2 className="movie__title">
           <a className="movie__link" href={card.trailerLink}>

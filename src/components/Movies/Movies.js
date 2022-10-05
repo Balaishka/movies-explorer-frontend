@@ -1,6 +1,7 @@
 import "./Movies.css";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import { amountCardsForPage } from "../../configs/constants";
 import { useEffect, useState } from "react";
 
 function Movies({
@@ -15,6 +16,8 @@ function Movies({
   likeFilm,
   deleteFilm,
   savedMovies,
+  filteredCards,
+  setFilteredCards,
 }) {
   // Размер окна
   const [widthWindow, setWidthWindow] = useState(window.innerWidth);
@@ -22,7 +25,6 @@ function Movies({
   // Количество карточек
   const [amountCards, setAmountCards] = useState(16);
   const [amountMoreCards, setAmountMoreCards] = useState(4);
-  const [filteredCards, setFilteredCards] = useState([]);
   const [isMore, setIsMore] = useState(false);
 
   useEffect(() => {
@@ -58,27 +60,23 @@ function Movies({
   function changeAmountsCards() {
     switch (true) {
       case widthWindow < 768:
-        //console.log("widthWindow < 768");
-        setAmountCards(5);
-        setAmountMoreCards(2);
+        setAmountCards(amountCardsForPage.xs.cards);
+        setAmountMoreCards(amountCardsForPage.xs.more);
         break;
 
       case widthWindow < 1024:
-        //console.log("widthWindow < 1024");
-        setAmountCards(8);
-        setAmountMoreCards(2);
+        setAmountCards(amountCardsForPage.s.cards);
+        setAmountMoreCards(amountCardsForPage.s.more);
         break;
 
       case widthWindow < 1200:
-        //console.log("widthWindow < 1200");
-        setAmountCards(12);
-        setAmountMoreCards(3);
+        setAmountCards(amountCardsForPage.m.cards);
+        setAmountMoreCards(amountCardsForPage.m.more);
         break;
 
       default:
-        //console.log("widthWindow >= 1200");
-        setAmountCards(16);
-        setAmountMoreCards(4);
+        setAmountCards(amountCardsForPage.l.cards);
+        setAmountMoreCards(amountCardsForPage.l.more);
         break;
     }
   }
