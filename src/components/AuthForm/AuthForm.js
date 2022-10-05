@@ -11,6 +11,9 @@ function AuthForm({
   linkText,
   textWithLink,
   data,
+  isValid,
+  isError,
+  errorMessage,
   children,
 }) {
   function handleSubmit(e) {
@@ -29,10 +32,14 @@ function AuthForm({
           {children}
         </div>
         <div className="auth__block">
+          {isError && <span className="auth__error">{errorMessage}</span>}
           <button
             type="submit"
-            className={`auth__btn ${buttonClass}`}
+            className={`auth__btn ${
+              !isValid ? "auth__btn_disabled" : ""
+            } ${buttonClass}`}
             aria-label={title}
+            disabled={!isValid}
           >
             {buttonText}
           </button>

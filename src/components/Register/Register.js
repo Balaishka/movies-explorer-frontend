@@ -1,23 +1,25 @@
 import AuthForm from "../AuthForm/AuthForm";
-import { useState } from "react";
+import { useEffect } from "react";
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 
-function Register({ onSubmit }) {
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+function Register({ onSubmit, isError, errorMessage }) {
+  const { values, errors, isValid, resetForm, handleChange } =
+    useFormAndValidation();
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
-  }
+  useEffect(() => {
+    resetForm(
+      {
+        name: "",
+        email: "",
+        password: "",
+      },
+      {},
+      false
+    );
+  }, [resetForm]);
 
-  function handleSubmit(data) {
-    onSubmit(data);
+  function handleSubmit() {
+    onSubmit(values);
   }
 
   return (
@@ -28,37 +30,53 @@ function Register({ onSubmit }) {
       link="/signin"
       linkText="Войти"
       textWithLink="Уже зарегистрированы?"
-      data={data}
+      data={values}
+      isValid={isValid}
+      isError={isError}
+      errorMessage={errorMessage}
     >
-      <span className="auth__input-text">Имя</span>
-      <input
-        name="name"
-        className="auth__input"
-        type="text"
-        onChange={handleChange}
-        value={data.name}
-        minLength="2"
-        maxLength="30"
-        required
-      />
-      <span className="auth__input-text">E-mail</span>
-      <input
-        name="email"
-        className="auth__input"
-        type="email"
-        onChange={handleChange}
-        value={data.email}
-        required
-      />
-      <span className="auth__input-text">Пароль</span>
-      <input
-        name="password"
-        className="auth__input"
-        type="password"
-        onChange={handleChange}
-        value={data.password}
-        required
-      />
+      <div className="auth__field">
+        <span className="auth__input-text">Имя</span>
+        <input
+          name="name"
+          className="auth__input"
+          type="text"
+          onChange={handleChange}
+          value={values.name}
+          minLength="2"
+          maxLength="30"
+          pattern="^[А-ЯЁа-яёA-Za-z\s-]+$"
+          required
+        />
+        <span className="auth__input-error">{errors.name}</span>
+      </div>
+
+      <div className="auth__field">
+        <span className="auth__input-text">E-mail</span>
+        <input
+          name="email"
+          className="auth__input"
+          type="email"
+          onChange={handleChange}
+          value={values.email}
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          required
+        />
+        <span className="auth__input-error">{errors.email || ""}</span>
+      </div>
+
+      <div className="auth__field">
+        <span className="auth__input-text">Пароль</span>
+        <input
+          name="password"
+          className="auth__input"
+          type="password"
+          onChange={handleChange}
+          value={values.password}
+          required
+        />
+        <span className="auth__input-error">{errors.password || ""}</span>
+      </div>
     </AuthForm>
   );
 }
