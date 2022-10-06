@@ -8,6 +8,8 @@
 
 Ссылка на backend проекта: [https://api.balaimovie.nomoredomains.sbs/](https://api.balaimovie.nomoredomains.sbs/)  
 
+Ссылка на backend проекта (github): [https://github.com/Balaishka/movies-explorer-api](https://github.com/Balaishka/movies-explorer-api)  
+
 Публичный IP-адрес сервера: [http://158.160.9.255](http://158.160.9.255)
 
 Чтобы выйти из аккаунта, нужно пройти по ссылке "Аккаунт" и нажать "Выйти из аккаунта".
