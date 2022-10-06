@@ -1,8 +1,7 @@
 import React from "react";
 import "./PageNotFound.css";
-import { NavLink } from "react-router-dom";
 
-function PageNotFound() {
+function PageNotFound({ history }) {
   return (
     <section className="error">
       <div className="error__cap"></div>
@@ -11,9 +10,13 @@ function PageNotFound() {
         <p className="error__subtitle">Страница не найдена</p>
       </div>
       <nav className="error__nav">
-        <NavLink to="/" className="error__link">
+        <button
+          type="button"
+          onClick={() => history.push("/")}
+          className="error__link"
+        >
           Назад
-        </NavLink>
+        </button>
       </nav>
     </section>
   );

@@ -1,17 +1,30 @@
 import "./MoviesCard.css";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
-import image from "../../images/movie.png";
+import { useEffect, useState } from "react";
 
-function MoviesCard({ movie }) {
+function MoviesCard({ card, likeFilm, deleteFilm, savedMovies }) {
   const { pathname } = useLocation();
 
   const [isLiked, setIsLiked] = useState(false);
 
+  useEffect(() => {
+    savedMovies.map((movie) => {
+      if (card.id === movie.id) {
+        setIsLiked(true);
+      }
+    });
+  }, [savedMovies]);
+
+  function handleDeleteFilm() {
+    deleteFilm(card.id);
+  }
+
   function toggleLike() {
     if (isLiked) {
+      handleDeleteFilm();
       setIsLiked(false);
     } else {
+      likeFilm(card);
       setIsLiked(true);
     }
   }
@@ -22,9 +35,19 @@ function MoviesCard({ movie }) {
 
   return (
     <li className="movie">
-      <img className="movie__img" src={image} alt={movie.nameRU} />
+      <a href={card.trailerLink}>
+        <img
+          className="movie__img"
+          src={`https://api.nomoreparties.co/${card.image.url}`}
+          alt={card.nameRU}
+        />
+      </a>
       <div className="movie__block">
-        <h2 className="movie__title">{movie.nameRU}</h2>
+        <h2 className="movie__title">
+          <a className="movie__link" href={card.trailerLink}>
+            {card.nameRU}
+          </a>
+        </h2>
         {pathname === "/movies" ? (
           <button className="movie__btn" onClick={toggleLike} type="button">
             <svg
@@ -42,7 +65,11 @@ function MoviesCard({ movie }) {
             </svg>
           </button>
         ) : (
-          <button className="movie__btn" onClick={toggleLike} type="button">
+          <button
+            className="movie__btn"
+            onClick={handleDeleteFilm}
+            type="button"
+          >
             <svg
               width="24"
               height="24"
@@ -61,7 +88,7 @@ function MoviesCard({ movie }) {
           </button>
         )}
       </div>
-      <p className="movie__time">{getTimeFromMins(movie.duration)}</p>
+      <p className="movie__time">{getTimeFromMins(card.duration)}</p>
     </li>
   );
 }

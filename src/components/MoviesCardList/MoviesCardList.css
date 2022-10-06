@@ -34,6 +34,16 @@
   opacity: 0.8;
 }
 
+.movies__nothing {
+  text-align: center;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.11;
+  color: #a0a0a0;
+  padding: 50px 0;
+}
+
 /* Mobile */
 
 @media screen and (min-width: 768px) {

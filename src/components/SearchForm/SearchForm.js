@@ -1,21 +1,81 @@
 import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
-function SearchForm() {
+function SearchForm({ searchFilms, setIsSuccess, setMessageInfo, setIsOpen }) {
+  const [filmName, setFilmName] = useState("");
+  const [isShortFilm, setIsShortFilm] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname === "/movies") {
+      if (localStorage.getItem("isSearch") !== null) {
+        try {
+          setFilmName(localStorage.getItem("valueSearch"));
+          setIsShortFilm(JSON.parse(localStorage.getItem("isShortFilm")));
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    }
+  }, []);
+
+  function handleChangeFilmName(e) {
+    setFilmName(e.target.value);
+  }
+
+  function handleShortFilms() {
+    if (isShortFilm) {
+      setIsShortFilm(false);
+      searchFilms(filmName, false);
+      if (pathname === "/movies") {
+        localStorage.setItem("isShortFilm", JSON.stringify(false));
+      }
+    } else {
+      setIsShortFilm(true);
+      searchFilms(filmName, true);
+      if (pathname === "/movies") {
+        localStorage.setItem("isShortFilm", JSON.stringify(true));
+      }
+    }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (filmName === "") {
+      setIsSuccess(false);
+      setMessageInfo("Нужно ввести ключевое слово");
+      setIsOpen(true);
+    } else {
+      searchFilms(filmName, isShortFilm);
+
+      if (pathname === "/movies") {
+        localStorage.setItem("valueSearch", filmName);
+        localStorage.setItem("isShortFilm", JSON.stringify(isShortFilm));
+      }
+    }
+  }
+
   return (
     <section className="search">
       <div className="search__container content__container">
-        <form action="search" className="search__form">
+        <form action="search" className="search__form" onSubmit={handleSubmit}>
           <input
             type="text"
             className="search__input"
             placeholder="Фильм"
-            required
+            onChange={handleChangeFilmName}
+            value={filmName}
           />
           <button className="search__btn" type="submit"></button>
         </form>
 
-        <FilterCheckbox />
+        <FilterCheckbox
+          handleShortFilms={handleShortFilms}
+          isShortFilm={isShortFilm}
+        />
 
         <div className="search__line"></div>
       </div>
